@@ -1,13 +1,25 @@
 const express = require('express');
-const expressSession = require('express-session');
+const session = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
+const path = require('node:path')
 require('dotenv').config()
+const passport = require('passport');
+const { localStrategy , serialize, deserialize } = require('./strategy/localStrategy.js');
+const indexRouter = require('./routes/indexRoute');
+const { error } = require('node:console');
 
 const app = express();
 
+// Set view engine to ejs
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Use static files
+app.use(express.static('public'));
+
 // Setup Prisma express session
-app.use( expressSession({
+app.use( session({
     cookie: {
         maxAge: 60 * 60 * 24 * 1000
     },
@@ -20,3 +32,16 @@ app.use( expressSession({
         dbRecordIdFunction: undefined
     })
 }));
+app.use(passport.session());
+app.use(express.urlencoded({ extended: true }));
+
+passport.use(localStrategy);
+passport.serializeUser(serialize);
+passport.deserializeUser(deserialize);
+
+app.use('/', indexRouter);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Express app listening to port ${PORT}`);
+})

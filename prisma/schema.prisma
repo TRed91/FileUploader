@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int   @id @default(autoincrement())
+  name      String 
+  password  String
+  files     File[]
+}
+
+model File {
+  id      Int   @id @default(autoincrement())
+  url     String
+  userId  Int
+  user    User  @relation(fields: [userId], references: [id]) 
+}
+
+model Session {
+  id        String @id
+  sid       String @unique
+  data      String
+  expiresAt DateTime
+}

@@ -8,7 +8,7 @@ const localStrategy = new LocalStrategy(
             const user = await prisma.user.findUnique({
                 where: { name: username },
             });
-            console.log(user);
+           
             if (!user) return done(null, false, { message: "Wrong username." });
 
             const match = await bcrypt.compare(password, user.password);

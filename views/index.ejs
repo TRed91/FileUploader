@@ -3,20 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>File Uploader</title>
 </head>
 <body>
     <% if (locals.user) { %>
         <h1>Hello <%= user.name %></h1>
+        <a href="/upload">Upload</a>
+        <h2>Create folder</h2>
+        <form action="/createFolder" method="post">
+            <input type="text" name="folder" id="folder" required>
+            <button>New Folder</button>
+        </form>
+        <div>
+            <% if (locals.folders) { %>
+                <% folders.forEach(f => { %>
+                    <div>
+                        <h4><%= f.name %></h4>
+                        <form action="/folder/<%= f.id %>" method="post">
+                            <input type="text" id="name" name="name" value="<%= f.name %>">
+                            <button>Edit</button>
+                        </form>
+                        <form action="/folder/<%= f.id %>" method="get">
+                            <button>Open</button>
+                        </form>
+                        <form action="/folder/delete/<%= f.id %>" method="post">
+                            <button>Delete</button>
+                        </form>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+        <div>
+            <% files.forEach(f => { %>
+                <div>
+                    <p><%= f.originalname %></p>
+                    <button>Download</button>
+                </div>
+            <% }) %>
+        </div>
     <% } else { %>
         <form action="/login" method="post">
             <div>
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username">
+                <input type="text" id="username" name="username" required>
             </div>
             <div>
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" required>
             </div>
             <button>Log In</button>
         </form>

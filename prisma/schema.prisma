@@ -12,13 +12,27 @@ model User {
   name      String  @unique
   password  String
   files     File[]
+  folders   Folder[]
 }
 
 model File {
+  id            Int    @id @default(autoincrement())
+  originalname  String @unique
+  filename      String
+  type          String
+  path          String
+  userId        Int
+  user          User   @relation(fields: [userId], references: [id])
+  folderId      Int?
+  folder        Folder? @relation(fields: [folderId], references: [id])
+}
+
+model Folder {
   id      Int   @id @default(autoincrement())
-  url     String
+  name    String
   userId  Int
-  user    User  @relation(fields: [userId], references: [id]) 
+  user    User  @relation(fields: [userId], references: [id])
+  files   File[]
 }
 
 model Session {

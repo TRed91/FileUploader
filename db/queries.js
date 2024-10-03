@@ -52,13 +52,14 @@ exports.createUser = async(user) => {
 
 exports.createFile = async(userId, folderId, file) => {
     try {
-        const { originalname, filename, type, path } = file;
+        const { originalname, filename, type, path, size } = file;
         const fileData = await prisma.file.create({
             data: {
                 originalname: originalname,
                 filename: filename,
                 type: type,
                 path: path,
+                size: size,
                 userId: userId,
                 folderId: parseInt(folderId)
             },

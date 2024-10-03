@@ -38,17 +38,20 @@ exports.uploadGet = async(req, res) => {
 }
 
 exports.uploadPost = async(req, res) => {
+    console.log(req.file);
     try {
         const originalname = req.file.originalname;
         const filename = req.file.filename;
         const type = req.file.mimetype;
         const path = req.file.path;
+        const size = req.file.size;
         const folderId = (req.body.folder !== 'none' ? req.body.folder : null);
     
         const file = await db.createFile(req.user.id, folderId, { originalname: originalname, 
                                                                 filename: filename, 
                                                                 type: type, 
-                                                                path: path });
+                                                                path: path,
+                                                                size: size });
         console.log(`Added to files for user ${req.user.name}: `, file);
     } catch (err) {
         console.error(err.message);

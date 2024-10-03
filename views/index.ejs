@@ -6,6 +6,7 @@
     <title>File Uploader</title>
 </head>
 <body>
+    <%- include('partials/navbar') %>
     <% if (locals.user) { %>
         <h1>Hello <%= user.name %></h1>
         <a href="/upload">Upload</a>

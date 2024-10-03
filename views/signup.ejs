@@ -4,31 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="signup-styles.css">
 </head>
 <body>
+    <div class="header">
+    <%- include('partials/title') %>
+    <%- include('partials/navbar') %>
+    </div>
     <% if (locals.user) { %>
-        <h1>You are already logged in</h1>
+        <main class="signupMain">
+            <h1>You are already logged in</h1>
+        </main>
     <% } else { %>
-        <form action="/signup" method="post">
-            <div>
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username">
+        <main class="signupMain">
+            <div class="signupContainer">
+                <div class="signupForm">
+                    <form action="/signup" method="post">
+                        <div class="inputField">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" required>
+                        </div>
+                        <div class="inputField">
+                            <label for="pw">Password</label>
+                            <input type="password" id="pw" name="pw" required>
+                        </div>
+                        <div class="inputField">
+                            <label for="cpw">Confirm Password</label>
+                            <input type="password" id="cpw" name="cpw" required>
+                        </div>
+                        <button class="signupButton">Sign Up</button>
+                    </form>
+                </div>
+                <div class="signupImage">
+                </div>
             </div>
-            <div>
-                <label for="pw">Password</label>
-                <input type="password" id="pw" name="pw">
-            </div>
-            <div>
-                <label for="cpw">Confirm Password</label>
-                <input type="password" id="cpw" name="cpw">
-            </div>
-            <button>Sign Up</button>
-        </form>
-        <% if (locals.errors) { %>
-            <% errors.forEach(e => { %>
-                <p><%= e.msg %></p>
-            <% }) %>
-        <% } %>
+            <% if (locals.errors) { %>
+                <div class="errMsg">
+                <% errors.forEach(e => { %>
+                    <p><%= e.msg %></p>
+                <% }) %>
+                </div>
+            <% } %>
+        </main>
     <% } %>
 </body>
 </html>

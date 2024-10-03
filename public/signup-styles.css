@@ -1,0 +1,84 @@
+.signupMain {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+}
+
+.signupContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #1a5f972b;
+    border-radius: 5px;
+
+    background-color: #9ad2ff;
+    width: 50%;
+    height: 50%;
+
+    min-width: 500px;
+}
+
+.signupForm {
+    width: 50%;
+}
+
+.signupForm > form {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.signupImage {
+    width: 50%;
+    height: 100%;
+    background: url('./images/documents-image.jpg') no-repeat;
+    background-size: cover;
+    opacity: 60%;
+    position: relative;
+}
+
+.inputField {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 0.8em;
+    transform: translateX(2px);
+}
+
+input {
+    border: 1px solid #0000005f;
+    border-radius: 2px;
+    padding: 5px;
+    font-size: 1em;
+    background-color: #c9e7ff;
+    box-shadow: inset 2px 2px 2px #0000004a;
+}
+
+.signupButton {
+    border: none;
+    background-color: #1947bc;
+    color: white;
+    width: 50%;
+    padding: 10px 20px;
+    border-radius: 2px;
+    box-shadow: 2px 2px 3px #0000005d;
+}
+
+.signupButton:hover {
+    background-color: #2353cf;
+}
+
+.signupButton:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.errMsg {
+    padding: 10px;
+    color: #a40000;   
+}

@@ -1,0 +1,43 @@
+h1, h2, h3, h4, h5, h6, p {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+li {
+    list-style: none;
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+:root {
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    background-color: #5db6ff;
+}
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0px;
+}
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav > ul {
+    display: flex;
+    gap: 30px;
+}

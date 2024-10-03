@@ -3,7 +3,8 @@ const { validationResult, body } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
 const validateUser = [
-    body('username').trim(),
+    body('username').trim()
+        .isLength({ min: 1 }).withMessage("Username can't be empty"),
     body('pw').trim()
         .isLength({ min: 8 }).withMessage('Password must be at least 8 characters long'),
     body('cpw').trim()

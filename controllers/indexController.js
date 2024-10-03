@@ -60,6 +60,18 @@ exports.uploadPost = async(req, res) => {
     }
 }
 
+exports.downloadGet = async(req, res) => {
+    try {
+        const fileId = parseInt(req.params.fileId);
+        const file = await db.getFile(fileId);
+        res.download(file.path, file.originalname);
+    } catch (err) {
+        console.error(err.message);
+        res.rediret('/')
+    }
+  
+}
+
 exports.detailsGet = async(req, res) => {
     try {
         const fileId = parseInt(req.params.fileId);

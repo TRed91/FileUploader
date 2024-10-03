@@ -11,7 +11,7 @@
         <div><%= file.type %></div>
         <div><%= size %> KB</div>
         <div>Uploaded: <%= file.uploadTime.toLocaleString() %></div>
-        <form action="download/<%= file.id %>" method="get">
+        <form action="/download/<%= file.id %>" method="get">
             <button>Download</button>
         </form>
     </div>

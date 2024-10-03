@@ -13,6 +13,7 @@ router.get('/logout', indexController.logout);
 
 router.get('/upload', indexController.uploadGet);
 router.post('/upload', upload.single('file'), indexController.uploadPost);
+router.get('/download/:fileId', indexController.downloadGet);
 router.post('/createFolder', indexController.createFolder);
 
 router.get('/folder/:folderId', indexController.openFolder);

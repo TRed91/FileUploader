@@ -37,7 +37,9 @@
             <% files.forEach(f => { %>
                 <div>
                     <p><%= f.originalname %></p>
-                    <button>Details</button>
+                    <form action="/details/<%= f.id %>" method="get">
+                        <button>Details</button>
+                    </form>
                 </div>
             <% }) %>
         </div>

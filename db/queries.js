@@ -24,6 +24,19 @@ exports.getFiles = async(userId, folderId) => {
     return files;
 }
 
+exports.getFile = async(fileId) => {
+    try {
+        const file = await prisma.file.findUnique({
+            where: { id: fileId },
+        });
+        return file;
+    } catch (err) {
+        return err;
+    } finally {
+        prisma.$disconnect;
+    }  
+}
+
 exports.getFolders = async(userId) => {
     const folders = await prisma.folder.findMany({
         where: {

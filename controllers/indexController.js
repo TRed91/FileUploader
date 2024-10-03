@@ -60,6 +60,18 @@ exports.uploadPost = async(req, res) => {
     }
 }
 
+exports.detailsGet = async(req, res) => {
+    try {
+        const fileId = parseInt(req.params.fileId);
+        const file = await db.getFile(fileId);
+        const size = parseFloat(file.size) / 1000;
+        res.render('details', { file: file, size: size });
+    } catch(err) {
+        console.error(err.message);
+        res.redirect('/');
+    } 
+}
+
 exports.createFolder = async(req, res) => {
     try {
         const folder = await db.createFolder(req.user.id, req.body.folder);

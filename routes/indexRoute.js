@@ -19,6 +19,8 @@ router.get('/folder/:folderId', indexController.openFolder);
 router.post('/folder/:folderId', indexController.renameFolder);
 router.post('/folder/delete/:folderId', indexController.deleteFolder);
 
+router.get('/details/:fileId', indexController.detailsGet);
+
 router.get('/signup', signupController.signupGet);
 router.post('/signup', signupController.signupPost);
 

@@ -12,6 +12,17 @@
         <div><%= file.type %></div>
         <div><%= size %> KB</div>
         <div>Uploaded: <%= file.uploadTime.toLocaleString() %></div>
+        <form action="/file/update/<%= file.id %>" method="post">
+            <select name="folder" id="folder">
+                <option value="none">-</option>
+                <% if (locals.folders) { %>
+                    <% folders.forEach(f => { %>
+                        <option value="<%= f.id %>"><%= f.name %></option>
+                    <% }) %>
+                <% } %>
+            </select>
+            <button>Add To Folder</button>
+        </form>
         <form action="/download/<%= file.id %>" method="get">
             <button>Download</button>
         </form>

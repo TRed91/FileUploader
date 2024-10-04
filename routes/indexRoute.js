@@ -15,6 +15,7 @@ router.get('/upload', indexController.uploadGet);
 router.post('/upload', upload.single('file'), indexController.uploadPost);
 router.get('/download/:fileId', indexController.downloadGet);
 router.post('/file/delete/:fileId', indexController.deleteFile);
+router.post('/file/update/:fileId', indexController.updateFile);
 
 router.post('/createFolder', indexController.createFolder);
 

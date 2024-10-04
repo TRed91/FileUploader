@@ -37,6 +37,20 @@ exports.getFile = async(fileId) => {
     }  
 }
 
+exports.updateFile = async(fileId, data) => {
+    try {
+        const file = await prisma.file.update({
+            where: { id: fileId },
+            data: { folderId: data.folderId },
+        });
+        return file;
+    } catch(err) {
+        return err;
+    } finally {
+        prisma.$disconnect;
+    }   
+}
+
 exports.deleteFile = async(fileId) => {
     try {
         await prisma.file.delete({

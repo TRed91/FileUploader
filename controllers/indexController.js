@@ -88,12 +88,26 @@ exports.detailsGet = async(req, res) => {
     try {
         const fileId = parseInt(req.params.fileId);
         const file = await db.getFile(fileId);
+        const folders = await db.getFolders(req.user.id);
         const size = parseFloat(file.size) / 1000;
-        res.render('details', { file: file, size: size });
+        res.render('details', { file: file, size: size, folders: folders });
     } catch(err) {
         console.error(err.message);
         res.redirect('/');
     } 
+}
+
+exports.updateFile = async(req, res) => {
+    try {
+        const fileId = parseInt(req.params.fileId);
+        const folderId = (req.body.folder !== 'none' ? parseInt(req.body.folder) : null);
+        const file = await db.updateFile(fileId, { folderId: folderId });
+        console.log('Updated file: ', file)
+    } catch (err) {
+        console.error('File update error: ', err.message)
+    } finally {
+        res.redirect('/details/' + req.params.fileId);
+    }
 }
 
 exports.createFolder = async(req, res) => {

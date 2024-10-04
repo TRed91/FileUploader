@@ -1,0 +1,35 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detailsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    background-color: #caddfb;
+
+    border: 1px solid #547feb;
+    border-radius: 2px;
+    box-shadow: 2px 2px 2px #547feb;
+    padding: 20px;
+
+    margin-top: 5rem;
+}
+
+select {
+    border: none;
+    font-size: 16px;
+    padding: 5px;
+
+    box-shadow: inset 2px 2px 2px #00000058;
+
+    border-radius: 2px;
+}
+
+form {
+    display: flex;
+    padding: 5px;
+}

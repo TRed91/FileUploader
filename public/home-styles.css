@@ -8,7 +8,7 @@
 .createFolder {
     margin: 10px;
     width: fit-content;
-    border: 1px solid #5459eb;
+    border: 1px solid #547feb;
     padding: 10px 20px;
     border-radius: 2px;
 }
@@ -28,9 +28,9 @@
     display: grid;
     gap: 5px;
 
-    border: 1px solid #5459eb;
+    border: 1px solid #547feb;
     border-radius: 2px;
-    box-shadow: 2px 2px 2px #5459eb;
+    box-shadow: 2px 2px 2px #547feb;
 
     padding: 5px;
 

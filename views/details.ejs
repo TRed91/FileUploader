@@ -4,28 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Details</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/form-styles.css">
+    <link rel="stylesheet" href="/details-styles.css">
 </head>
 <body>
-    <%- include('partials/navbar') %>
-    <div>
-        <h3><%= file.originalname %></h2>
-        <div><%= file.type %></div>
-        <div><%= size %> KB</div>
-        <div>Uploaded: <%= file.uploadTime.toLocaleString() %></div>
-        <form action="/file/update/<%= file.id %>" method="post">
-            <select name="folder" id="folder">
-                <option value="none">-</option>
-                <% if (locals.folders) { %>
-                    <% folders.forEach(f => { %>
-                        <option value="<%= f.id %>"><%= f.name %></option>
-                    <% }) %>
-                <% } %>
-            </select>
-            <button>Add To Folder</button>
-        </form>
-        <form action="/download/<%= file.id %>" method="get">
-            <button>Download</button>
-        </form>
+    <div class="header">
+        <%- include('partials/title') %>
+        <%- include('partials/navbar') %>
     </div>
+    <main>
+        <div class="detailsContainer">
+            <h3><%= file.originalname %></h2>
+            <div><%= file.type %></div>
+            <div><%= size %> KB</div>
+            <div>Uploaded: <%= file.uploadTime.toLocaleString() %></div>
+            <form action="/file/update/<%= file.id %>" method="post">
+                <select name="folder" id="folder">
+                    <option value="none">-</option>
+                    <% if (locals.folders) { %>
+                        <% folders.forEach(f => { %>
+                            <option value="<%= f.id %>"><%= f.name %></option>
+                        <% }) %>
+                    <% } %>
+                </select>
+                <button class="btn">Add To Folder</button>
+            </form>
+            <form action="/download/<%= file.id %>" method="get">
+                <button class="btn">Download</button>
+            </form>
+        </div>
+    </main>
 </body>
 </html>

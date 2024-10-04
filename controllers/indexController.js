@@ -1,5 +1,6 @@
 const passport = require('passport');
 const db = require('../db/queries');
+const { unlink } = require('node:fs/promises');
 
 exports.indexGet = async(req, res) => {
     const user = req.user || null;
@@ -38,7 +39,6 @@ exports.uploadGet = async(req, res) => {
 }
 
 exports.uploadPost = async(req, res) => {
-    console.log(req.file);
     try {
         const originalname = req.file.originalname;
         const filename = req.file.filename;
@@ -69,7 +69,19 @@ exports.downloadGet = async(req, res) => {
         console.error(err.message);
         res.rediret('/')
     }
-  
+}
+
+exports.deleteFile = async(req, res) => {
+    try{
+        const fileId = parseInt(req.params.fileId);
+        const file = await db.getFile(fileId);
+        await db.deleteFile(fileId);
+        await unlink(file.path);
+    } catch (err) {
+        console.error("File deletion error: ", err.message);
+    } finally {
+        res.redirect('/');
+    }
 }
 
 exports.detailsGet = async(req, res) => {
@@ -97,13 +109,15 @@ exports.createFolder = async(req, res) => {
 
 exports.openFolder = async(req, res) => {
     const user = req.user || null;
+    const folderId = parseInt(req.params.folderId);
     let files;
     if (user) {
-        files = await db.getFiles(user.id, parseInt(req.params.folderId));
+        files = await db.getFiles(user.id, folderId);
     }
+    const folderName = await db.getFolderName(folderId);
     const errs = req.session.messages || [];
     const err = errs[errs.length - 1];
-    res.render('index', { user: user, err: err, files: files });
+    res.render('index', { user: user, err: err, files: files, foldername: folderName.name });
 }
 
 exports.renameFolder = async(req, res) => {

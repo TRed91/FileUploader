@@ -1,4 +1,4 @@
-.signupMain {
+.signupMain, .loginMain {
     display: flex;
     flex-direction: column;
     height: 80%;
@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-.signupContainer {
+.signupContainer, .loginContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,18 +20,18 @@
     min-width: 500px;
 }
 
-.signupForm {
+.signupForm, .loginForm {
     width: 50%;
 }
 
-.signupForm > form {
+.signupForm > form, .loginForm > form {
     padding: 2rem;
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-.signupImage {
+.signupImage, .loginImage {
     width: 50%;
     height: 100%;
     background: url('./images/documents-image.jpg') no-repeat;
@@ -59,21 +59,20 @@ input {
     box-shadow: inset 2px 2px 2px #0000004a;
 }
 
-.signupButton {
+.btn {
     border: none;
     background-color: #1947bc;
     color: white;
-    width: 50%;
     padding: 10px 20px;
     border-radius: 2px;
     box-shadow: 2px 2px 3px #0000005d;
 }
 
-.signupButton:hover {
+.btn:hover {
     background-color: #2353cf;
 }
 
-.signupButton:active {
+.btn:active {
     transform: translateY(1px);
     box-shadow: none;
 }

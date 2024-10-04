@@ -1,0 +1,74 @@
+.homeMain {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 2rem;
+}
+
+.createFolder {
+    margin: 10px;
+    width: fit-content;
+    border: 1px solid #5459eb;
+    padding: 10px 20px;
+    border-radius: 2px;
+}
+
+.createFolder > form {
+    display: flex;
+}
+
+.contents {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.folderCard, .fileCard {
+    width: 180px;
+    display: grid;
+    gap: 5px;
+
+    border: 1px solid #5459eb;
+    border-radius: 2px;
+    box-shadow: 2px 2px 2px #5459eb;
+
+    padding: 5px;
+
+    background-color: rgb(228, 228, 228);
+}
+
+.folderImg, .fileImg {
+    height: 100px;
+}
+
+.folderCard > form {
+    display: flex;
+}
+
+.editInput {
+    width: 80%;
+}
+
+.folderOptions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.optionButton {
+    flex: 1;
+}
+
+.deleteBtn {
+    background-color: #9b2121;
+}
+
+.deleteBtn:hover {
+    background-color: #9e3535;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 50%;
+}

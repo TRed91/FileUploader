@@ -4,64 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Uploader</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/form-styles.css">
+    <link rel="stylesheet" href="/home-styles.css">
 </head>
 <body>
-    <%- include('partials/navbar') %>
-    <% if (locals.user) { %>
-        <h1>Hello <%= user.name %></h1>
-        <a href="/upload">Upload</a>
-        <h2>Create folder</h2>
-        <form action="/createFolder" method="post">
-            <input type="text" name="folder" id="folder" required>
-            <button>New Folder</button>
-        </form>
-        <div>
-            <% if (locals.folders) { %>
-                <% folders.forEach(f => { %>
-                    <div>
-                        <h4><%= f.name %></h4>
-                        <form action="/folder/<%= f.id %>" method="post">
-                            <input type="text" id="name" name="name" value="<%= f.name %>">
-                            <button>Edit</button>
+    <header class="header">
+        <%- include('partials/title') %>
+        <%- include('partials/navbar') %>
+    </header>
+        <% if (locals.user) { %>
+            <main class="homeMain">
+            <% if (locals.foldername) { %>
+                <h2><%= foldername %></h2>
+            <% } else { %>
+                <h2>Hello <%= user.name %></h2>
+            <% } %>
+            <div  class="createFolder">
+                <h4>Create folder</h4>
+                <form action="/createFolder" method="post">
+                    <input type="text" name="folder" id="folder" required>
+                    <button class="btn">New Folder</button>
+                </form>
+            </div>
+            <div class="contents">
+                <% if (locals.folders) { %>
+                    <% folders.forEach(f => { %>
+                        <div class="folderCard">
+                            <div class="folderImg"><img src="/images/folder-open-side-svgrepo-com.svg" alt="folder icon"></div>
+                            <h4><%= f.name %></h4>
+                            <form action="/folder/<%= f.id %>" method="post">
+                                <input type="text" id="name" name="name" value="<%= f.name %>" class="editInput">
+                                <button class="btn editBtn">Edit</button>
+                            </form>
+                            <div class="folderOptions">
+                            <form action="/folder/<%= f.id %>" method="get">
+                                <button class="btn optionBtn">Open</button>
+                            </form>
+                            <form action="/folder/delete/<%= f.id %>" method="post">
+                                <button class="btn optionBtn deleteBtn">Delete</button>
+                            </form>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } %>
+                <% files.forEach(f => { %>
+                    <div class="fileCard">
+                        <div class="fileImg"><img src="/images/file-svgrepo-com.svg" alt="file icon"></div>
+                        <% if (f.originalname.length > 20) { %>
+                            <p><%= f.originalname.substring(0, 12) %> ... <%= f.originalname.substring(f.originalname.length - 4) %></p>
+                        <% } else { %>
+                            <p><%= f.originalname %></p>
+                        <% } %>
+                        <form action="/details/<%= f.id %>" method="get">
+                            <button class="btn">Details</button>
                         </form>
-                        <form action="/folder/<%= f.id %>" method="get">
-                            <button>Open</button>
-                        </form>
-                        <form action="/folder/delete/<%= f.id %>" method="post">
-                            <button>Delete</button>
-                        </form>
+                        <div class="folderOptions">
+                            <form action="/download/<%= f.id %>" method="get">
+                                <button class="btn">Download</button>
+                            </form>
+                            <form action="/file/delete/<%= f.id %>" method="post">
+                                <button class="btn optionBtn deleteBtn">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 <% }) %>
-            <% } %>
-        </div>
-        <div>
-            <% files.forEach(f => { %>
-                <div>
-                    <p><%= f.originalname %></p>
-                    <form action="/details/<%= f.id %>" method="get">
-                        <button>Details</button>
-                    </form>
-                    <form action="/download/<%= f.id %>" method="get">
-                        <button>Download</button>
+            </div>
+        </main>
+    <% } else { %>
+        <main  class="loginMain">
+            <div class="loginContainer">
+                <div class="loginForm">
+                    <form action="/login" method="post">
+                        <div class="inputField">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" required>
+                        </div>
+                        <div class="inputField">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        <button class="btn">Log In</button>
                     </form>
                 </div>
-            <% }) %>
-        </div>
-    <% } else { %>
-        <form action="/login" method="post">
-            <div>
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <div class="loginImage"></div>
             </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button>Log In</button>
-        </form>
-        <% if (locals.err) { %>
-            <p><%= err %></p>
-        <% } %>
+            <% if (locals.err) { %>
+                <p class="errMsg"><%= err %></p>
+            <% } %>
+        </main>
     <% } %>
 </body>
 </html>

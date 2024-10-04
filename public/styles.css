@@ -30,6 +30,8 @@ body {
     justify-content: space-around;
     align-items: center;
     padding: 20px 0px;
+
+    background-color: white;
 }
 
 nav {

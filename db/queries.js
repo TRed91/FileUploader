@@ -37,6 +37,19 @@ exports.getFile = async(fileId) => {
     }  
 }
 
+exports.deleteFile = async(fileId) => {
+    try {
+        await prisma.file.delete({
+            where: { id: fileId },
+        });
+        return;
+    } catch (err) {
+        return err;
+    } finally {
+        prisma.$disconnect;
+    } 
+}
+
 exports.getFolders = async(userId) => {
     const folders = await prisma.folder.findMany({
         where: {
@@ -44,6 +57,14 @@ exports.getFolders = async(userId) => {
         },
     });
     return folders;
+}
+
+exports.getFolderName = async(folderId) => {
+    const folderName = await prisma.folder.findUnique({
+        where: { id: folderId },
+        select: { name: true },
+    });
+    return folderName;
 }
 
 exports.createUser = async(user) => {

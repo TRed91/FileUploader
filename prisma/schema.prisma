@@ -18,11 +18,9 @@ model User {
 model File {
   id            Int     @id @default(autoincrement())
   originalname  String 
-  filename      String?
   size          BigInt
   uploadTime    DateTime @default(now())
   type          String
-  path          String?
   userId        Int
   user          User    @relation(fields: [userId], references: [id])
   folderId      Int?

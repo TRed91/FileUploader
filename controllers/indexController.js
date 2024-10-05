@@ -1,6 +1,10 @@
 const passport = require('passport');
 const db = require('../db/queries');
-const { unlink } = require('node:fs/promises');
+const { decode } = require('base64-arraybuffer');
+const storage = require('../storageAPI/supabase');
+const { unlink, writeFile } = require('node:fs/promises');
+const fs = require('fs');
+const path = require('node:path');
 
 exports.indexGet = async(req, res) => {
     const user = req.user || null;
@@ -40,34 +44,57 @@ exports.uploadGet = async(req, res) => {
 
 exports.uploadPost = async(req, res) => {
     try {
+        // save to db
         const originalname = req.file.originalname;
-        const filename = req.file.filename;
         const type = req.file.mimetype;
-        const path = req.file.path;
+        //const path = req.file.path;
         const size = req.file.size;
         const folderId = (req.body.folder !== 'none' ? req.body.folder : null);
     
         const file = await db.createFile(req.user.id, folderId, { originalname: originalname, 
-                                                                filename: filename, 
                                                                 type: type, 
-                                                                path: path,
                                                                 size: size });
         console.log(`Added to files for user ${req.user.name}: `, file);
+
+        // decode file buffer
+        const decodedFile = decode(req.file.buffer.toString('base64'));
+
+        // upload to supabase
+        const storedFile = await storage.uploadFile('files', originalname, decodedFile, type);
+        console.log("Storage: ", storedFile);
     } catch (err) {
         console.error(err.message);
     } finally {
         res.redirect('/');
     }
+
+    //await storage.uploadFile('files', req.file.path, req.file);
 }
 
 exports.downloadGet = async(req, res) => {
     try {
         const fileId = parseInt(req.params.fileId);
         const file = await db.getFile(fileId);
-        res.download(file.path, file.originalname);
+
+        const filePath = 'files/' + file.originalname;
+
+        const blob = await storage.downloadFile('files', file.originalname);
+        const buffer = Buffer.from(await blob.arrayBuffer());
+        
+        // temporarely store file in file folder
+        await writeFile(filePath, buffer);
+       
+        res.download(filePath, (err) => {
+            if (err) {
+                throw new Error(err.message)
+            }
+            // delete file from file folder after download
+            unlink(filePath)
+        });
+
     } catch (err) {
-        console.error(err.message);
-        res.rediret('/')
+        console.error('Download Error: ', err.message);
+        res.redirect('/');
     }
 }
 
@@ -76,7 +103,8 @@ exports.deleteFile = async(req, res) => {
         const fileId = parseInt(req.params.fileId);
         const file = await db.getFile(fileId);
         await db.deleteFile(fileId);
-        await unlink(file.path);
+        await storage.deleteFile('files', file.originalname);
+        console.log('Delete from storage: success');
     } catch (err) {
         console.error("File deletion error: ", err.message);
     } finally {

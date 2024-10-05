@@ -4,7 +4,8 @@ const indexController = require('../controllers/indexController');
 const signupController = require('../controllers/signUpController');
 
 const router = Router();
-const upload = multer({ dest: 'uploads/' })
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 router.get('/', indexController.indexGet);
 

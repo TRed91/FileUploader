@@ -7,7 +7,6 @@ require('dotenv').config()
 const passport = require('passport');
 const { localStrategy , serialize, deserialize } = require('./strategy/localStrategy.js');
 const indexRouter = require('./routes/indexRoute');
-const { error } = require('node:console');
 
 const app = express();
 

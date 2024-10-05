@@ -24,7 +24,7 @@
     width: 50%;
 }
 
-.signupForm > form, .loginForm > form {
+.signupForm > form, .loginForm > form, .uploadForm {
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -80,4 +80,19 @@ input {
 .errMsg {
     padding: 10px;
     color: #a40000;   
+}
+
+.uploadMain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+.uploadForm {
+    border: 1px solid #1947bc;
+    box-shadow: 2px 2px 2px #1947bc6e;
+    border-radius: 2px;
+    padding: 20px;
+    background-color: #caddfb;
 }

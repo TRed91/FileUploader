@@ -43,3 +43,14 @@ nav > ul {
     display: flex;
     gap: 30px;
 }
+
+a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+a > img {
+    height: 20px;
+    width: 20px;
+}
